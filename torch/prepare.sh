@@ -10,8 +10,8 @@ apt-get update
 apt-get install -y sudo git gcc g++ make vim
 
 # get this repo
-mkdir work && cd work
-git clone https://github.com/godmoves/deeper-stack.git ./deeper-stack
+#mkdir work && cd work
+#git clone https://github.com/godmoves/deeper-stack.git ./deeper-stack
 
 # unzip the hand rank file
 cd deeper-stack/Source/Game/Evaluation
@@ -21,11 +21,11 @@ cd ../../../..
 # install the latest CMake
 git clone https://github.com/Kitware/CMake.git
 cd CMake
-./bootstrap && make && make install
+./bootstrap && make && sudo make install
 cd ..
 
 # get torch (for CUDA 10, CuDNN 7)
-git clone https://github.com/torch/distro.git ./torch --recursive
+#git clone https://github.com/torch/distro.git ./torch --recursive
 cd ./torch && bash install-deps
 rm -fr cmake/3.6/Modules/FindCUDA*
 

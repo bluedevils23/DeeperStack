@@ -7,11 +7,11 @@ if #arg == 0 then
   print("Please specify the street. 1 = preflop, 2 = flop, 3 = turn, 4 = river")
   return
 end
-
+print('main data generate begin')
 local arguments = require 'Settings.arguments'
 local data_generation = require 'DataGeneration.data_generation'
 local aux_data_generation = require 'DataGeneration.aux_data_generation'
-
+print('main data generate begin 2')
 if tonumber(arg[1]) == 1 then
   aux_data_generation:generate_data(arguments.train_data_count, filename, tonumber(arg[1]))
 else

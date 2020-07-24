@@ -76,6 +76,7 @@ function convert(street)
 
   print(numfiles .. " good files")
   local bucket_count = bucketer:get_bucket_count(street)
+  print (bucket_count .. ' buckets')
   local target_size = bucket_count * constants.players_count
 
   --ranges, termvalues, potsize

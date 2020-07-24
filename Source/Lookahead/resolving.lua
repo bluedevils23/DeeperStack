@@ -54,11 +54,11 @@ function Resolving:resolve_first_node(node, player_range, opponent_range)
   timer:reset()
   self.lookahead:build_lookahead(self.lookahead_tree)
 
-  --print('build time: ' .. timer:time().real)
+  print('build time: ' .. timer:time().real)
   timer:reset()
 
   self.lookahead:resolve_first_node(player_range, opponent_range)
-  --print('resolve time: ' .. timer:time().real)
+  print('resolve time: ' .. timer:time().real)
 
   self.resolve_results = self.lookahead:get_results()
   return self.resolve_results

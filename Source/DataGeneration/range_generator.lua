@@ -61,34 +61,47 @@ end
 -- @param te player terminal equities evaluator
 -- @param board a possibly empty vector of board cards
 function RangeGenerator:set_board(te, board)
-
+  local timer = torch.Timer()
+  timer:reset()
   local hand_strengths = arguments.Tensor(game_settings.hand_count)
   for i=1,game_settings.hand_count do
     hand_strengths[i] = i
   end
+  print('set_board time 00.1: ' .. timer:time().real)
   if board:dim() == 0 then
+    print ('board:dim() == 0')
     hand_strengths = te:get_hand_strengths():squeeze()
+    print('set_board time 00.2: ' .. timer:time().real)
   elseif board:size(1) == 5 then
+    print ("board:size(1) == 5")
     hand_strengths = evaluator:batch_eval(board)
+    print('set_board time 00.3: ' .. timer:time().real)
   else
+    print ("else")
     hand_strengths = te:get_hand_strengths():squeeze()
+    print('set_board time 00.4: ' .. timer:time().real)
   end
+  print('set_board time 01: ' .. timer:time().real)
   local possible_hand_indexes = card_tools:get_possible_hand_indexes(board)
   self.possible_hands_count = possible_hand_indexes:sum(1)[1]
   self.possible_hands_mask = possible_hand_indexes:view(1, -1)
+  print('set_board time 02: ' .. timer:time().real)
   if not arguments.gpu then
     self.possible_hands_mask = self.possible_hands_mask:byte()
   else
     self.possible_hands_mask = self.possible_hands_mask:cudaByte()
   end
+  print('set_board time 03: ' .. timer:time().real)
   local non_colliding_strengths = arguments.Tensor(self.possible_hands_count)
   non_colliding_strengths:maskedSelect(hand_strengths, self.possible_hands_mask)
+  print('set_board time 04: ' .. timer:time().real)
   local order
   _, order = non_colliding_strengths:sort()
   _, self.reverse_order = order:sort()
   self.reverse_order = self.reverse_order:view(1, -1):long()
   self.reordered_range = arguments.Tensor()
   self.sorted_range =arguments.Tensor()
+  print('set_board time 05: ' .. timer:time().real)
 end
 
 --- Samples a batch of random range vectors.
