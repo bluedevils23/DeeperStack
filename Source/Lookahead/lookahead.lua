@@ -105,6 +105,7 @@ function Lookahead:_compute()
     self:_compute_cumulate_average_cfvs(iter)
     timings[8] = timings[8] + timer:time().real
     timer:reset()
+    --print ('iter:'..iter)
   end
 
   --2.0 at the end normalize average strategy

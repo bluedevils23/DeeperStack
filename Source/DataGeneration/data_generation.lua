@@ -36,6 +36,27 @@ function M:generate_data(train_data_count, file_name, street)
   print('Generation time: ' .. timer:time().real)
 end
 
+
+function M:convert_card_tonumber(card_string)
+  if (card_string == 'T') then
+    return 10
+  end  
+  if (card_string == 'J') then
+    return 11
+  end
+  if (card_string == 'Q') then
+    return 12
+  end
+  if (card_string == 'K') then
+    return 13
+  end
+  if (card_string == 'A') then
+    return 14
+  end
+  return tonumber(card_string)
+end
+
+
 --- Generates data files containing examples of random poker situations with
 -- counterfactual values from an associated solution.
 -- 
@@ -84,15 +105,26 @@ function M:generate_data_file(data_count, file_name, street)
     --print('00 total time: '..startTime:time().real..' seconds')
     local timer = torch.Timer()
     timer:reset()
-    local board = card_generator:generate_cards(game_settings.board_card_count[street])
-    print('01 total time: '..startTime:time().real..' seconds')
-    print('01 elapse time: '..timer:time().real..' seconds')
-    local board_string = card_to_string_conversion:cards_to_string(board)
-    print('01.1 elapse time: '..timer:time().real..' seconds')
+
+    local board = {}
+    local board_string = ''
+    while (true) do
+      board = card_generator:generate_cards(game_settings.board_card_count[street])
+      --print('01 total time: '..startTime:time().real..' seconds')
+      --print('01 elapse time: '..timer:time().real..' seconds')
+      board_string = card_to_string_conversion:cards_to_string(board)
+      local a1 = self:convert_card_tonumber(string.sub(board_string,1,1))
+      local a2 = self:convert_card_tonumber(string.sub(board_string,3,3))
+      local a3 = self:convert_card_tonumber(string.sub(board_string,5,5))
+      --print (a1 .. ' ' .. a2 .. ' ' .. a3)
+      if a1 >= a2 and a2 >= a3 then
+        break
+      end
+    end
     te:set_board(board)
-    print('01.2 elapse time: '..timer:time().real..' seconds')
+    --print('01.2 elapse time: '..timer:time().real..' seconds')
     range_generator:set_board(te, board)
-    print('02 elapse time: '..timer:time().real..' seconds')
+    --print('02 elapse time: '..timer:time().real..' seconds')
     --generating ranges
 
     for iter=1, 10 do

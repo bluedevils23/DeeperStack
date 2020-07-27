@@ -49,7 +49,7 @@ params.save_epoch = 1
 --- how many epochs to train for
 params.epoch_count = 300
 --- how many solved poker situations are generated for use as training examples
-params.train_data_count = 20000
+params.train_data_count = 80000
 --- learning rate for neural net training
 params.learning_rate = 0.001
 --- how epochs are needed to decrease learning_rate to learning_rate / 10

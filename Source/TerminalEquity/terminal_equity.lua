@@ -227,6 +227,7 @@ end
 -- and K is the range size
 -- @param result a NxK tensor in which to save the cfvs
 function TerminalEquity:call_value(ranges, result)
+  --print ('enter call value')
   result:mm(ranges, self.equity_matrix)
 end
 
@@ -240,6 +241,9 @@ end
 -- @param result A NxK tensor in which to save the cfvs. Positive cfvs are returned, and
 -- must be negated if the player in question folded.
 function TerminalEquity:fold_value(ranges, result)
+  --print ('enter folder_value')
+  --print (ranges:size())
+  --print (self.fold_matrix:size())
   result:mm(ranges, self.fold_matrix)
 end
 
