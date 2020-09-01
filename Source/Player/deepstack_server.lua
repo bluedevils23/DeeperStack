@@ -7,9 +7,9 @@ local constants = require 'Settings.constants'
 require 'ACPC.acpc_game'
 require 'Player.continual_resolving'
 
---
+-- *
 -- Import try catch functions from https://tboox.org/cn/2016/12/14/try-catch/
--- 
+-- *
 function try(block)
 
   -- get the try function
@@ -47,15 +47,15 @@ end
 
 try
 {
-    function ()
-      error("error message")
-    end,
-    catch
-    {
-        function (errors)
-            print(errors)
-        end
-    }
+  function ()
+    error("error message")
+  end,
+  catch
+  {
+    function (errors)
+      print(errors)
+    end
+  }
 }
 
 local input_port = 0
