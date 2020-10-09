@@ -45,18 +45,18 @@ end
 
 
 
-try
-{
-  function ()
-    error("error message")
-  end,
-  catch
-  {
-    function (errors)
-      print(errors)
-    end
-  }
-}
+-- try
+-- {
+--   function ()
+--     error("error message")
+--   end,
+--   catch
+--   {
+--     function (errors)
+--       print(errors)
+--     end
+--   }
+-- }
 
 local input_port = 0
 if #arg > 0 then
@@ -80,19 +80,28 @@ print("listening to " .. ip .. ":" .. port)
 local client = server:accept()
 print("accepted client")
 
-while 1 do
+function getTrace()
+  print(debug.traceback())
+end
+
+function run()
+
   local line, err = client:receive()
   -- if there was no error, send it back to the client
   if not err then
     print(line)
   else
     print(err)
+    client = server:accept()
+    print("accepted client")
   end
 
   local state
   local node
   --2.1 blocks until it's our situation/turn
   state, node = acpc_game:string_to_statenode(line)
+  print(state)
+  print(node)
 
   --did a new hand start?
   if not last_state or last_state.hand_number ~= state.hand_number or node.street < last_node.street then
@@ -117,4 +126,14 @@ while 1 do
   last_state = state
   last_node = node
   collectgarbage()
+end
+
+while 1 do
+  local status, err, ret = xpcall(run, getTrace)
+  if status then
+    print("Success")
+  else
+    print("Failure")
+    print(err)
+ end
 end

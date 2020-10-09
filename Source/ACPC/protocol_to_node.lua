@@ -281,7 +281,9 @@ function ACPCProtocolToNode:_process_parsed_state(parsed_state)
   local bet1
   local bet2
   bet1, bet2 = self:_compute_bets(out)
-  assert(bet1 <= bet2, 'ACPC Protocol Specification defines that always bets should be more or equal than last bets (bet1=' .. bet1 .. ') (bet2=' .. bet2 .. ')')
+
+  --Yang: Not needed for some situation.
+  --assert(bet1 <= bet2, 'ACPC Protocol Specification defines that always bets should be more or equal than last bets (bet1=' .. bet1 .. ') (bet2=' .. bet2 .. ')')
 
   if out.position == constants.players.P1 then
     out.bet1 = bet1

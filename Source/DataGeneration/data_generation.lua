@@ -127,7 +127,7 @@ function M:generate_data_file(data_count, file_name, street)
     --print('02 elapse time: '..timer:time().real..' seconds')
     --generating ranges
 
-    for iter=1, 10 do
+    for iter=1, 1 do
 
 
       local ranges = arguments.Tensor(constants.players_count, batch_size, game_settings.hand_count)
@@ -156,7 +156,7 @@ function M:generate_data_file(data_count, file_name, street)
         local player_index = player_indexes[player]
         inputs[{{}, player_index}]:copy(ranges[player])
       end
-      print('06 elapse time: '..timer:time().real..' seconds')
+      --print('06 elapse time: '..timer:time().real..' seconds')
       --computation of values using re-solving
       local values = arguments.Tensor(batch_size, constants.players_count, game_settings.hand_count)
 
@@ -170,7 +170,7 @@ function M:generate_data_file(data_count, file_name, street)
       current_node.street = street
       current_node.num_bets = 0
       current_node.current_player = street == 1 and constants.players.P1 or constants.players.P2
-      print('07 elapse time: '..timer:time().real..' seconds')
+      --print('07 elapse time: '..timer:time().real..' seconds')
       --TODO merge preflop bets support
       current_node.bets = arguments.Tensor{pot_size, pot_size}
       local p1_range = ranges[1]
@@ -186,13 +186,13 @@ function M:generate_data_file(data_count, file_name, street)
         local player_index = player_indexes[player]
         targets[{{}, player_index}]:copy(values[{{}, player, {}}])
       end
-      print('07.3 elapse time: '..timer:time().real..' seconds')
+      --print('07.3 elapse time: '..timer:time().real..' seconds')
       local basename = file_name .. '-' .. board_string .. '-' .. batch .. '-' .. iter
 
       torch.save(arguments.data_path .. train_folder .. basename .. '.inputs', inputs:float())
       torch.save(arguments.data_path .. train_folder .. basename .. '.targets', targets:float())
-      print('08 elapse time: '..timer:time().real..' seconds')
-      print('02 total time: '..startTime:time().real..' seconds')
+      --print('08 elapse time: '..timer:time().real..' seconds')
+      --print('02 total time: '..startTime:time().real..' seconds')
       --collectgarbage()
     end
     collectgarbage()

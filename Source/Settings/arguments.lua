@@ -22,11 +22,11 @@ params.Tensor = torch.FloatTensor
 --- the directory for data files
 params.data_directory = '../Data/'
 --- the size of the game's ante/small blind/big blind, in chips
-params.ante = 100
-params.sb = 50
-params.bb = 100
+params.ante = 1
+params.sb = 10
+params.bb = 20
 --- the size of each player's stack, in chips
-params.stack = 20000
+params.stack = 1000
 --- the number of iterations that DeepStack runs CFR for
 params.cfr_iters = 1000
 --- the number of preliminary CFR iterations which DeepStack doesn't factor into the average strategy (included in cfr_iters)
@@ -34,7 +34,7 @@ params.cfr_skip_iters = 500
 --- how many poker situations are solved simultaneously during data generation
 params.gen_batch_size = 10
 --- how many poker situations are used in each neural net training batch
-params.train_batch_size = 600
+params.train_batch_size = 500
 --- path to the solved poker situation data used to train the neural net
 params.data_path = '../Data/TrainSamples/'
 --- path to the neural net model
