@@ -71,14 +71,6 @@ local continual_resolving = ContinualResolving()
 local last_state = nil
 local last_node = nil
 
--- load namespace
--- create a TCP socket and bind it to the local host, at any port
-local server = assert(socket.bind("*", input_port))
-local ip, port = server:getsockname()
-print("listening to " .. ip .. ":" .. port)
-
-local client = server:accept()
-print("accepted client")
 
 function getTrace()
   print(debug.traceback())
@@ -88,7 +80,7 @@ end
 function convert_card_tonumber(card_string)
   if (card_string == 'T') then
     return 10
-  end  
+  end
   if (card_string == 'J') then
     return 11
   end
@@ -178,6 +170,16 @@ function run()
   last_node = node
   collectgarbage()
 end
+
+
+-- load namespace
+-- create a TCP socket and bind it to the local host, at any port
+local server = assert(socket.bind("*", input_port))
+local ip, port = server:getsockname()
+print("listening to " .. ip .. ":" .. port)
+
+local client = server:accept()
+print("accepted client")
 
 while 1 do
   local status, err, ret = xpcall(run, getTrace)
