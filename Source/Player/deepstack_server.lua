@@ -84,8 +84,51 @@ function getTrace()
   print(debug.traceback())
 end
 
-function run()
 
+function convert_card_tonumber(card_string)
+  if (card_string == 'T') then
+    return 10
+  end  
+  if (card_string == 'J') then
+    return 11
+  end
+  if (card_string == 'Q') then
+    return 12
+  end
+  if (card_string == 'K') then
+    return 13
+  end
+  if (card_string == 'A') then
+    return 14
+  end
+  return tonumber(card_string)
+end
+
+
+function sortBoardFlop(board_string)
+  if board_string ~= "" then
+    local a = {}
+    table.insert(a, string.sub(board_string,1,2))
+    table.insert(a, string.sub(board_string,3,4))
+    table.insert(a, string.sub(board_string,5,6))
+    --print(a)
+    table.sort(a, function(left, right)
+        --print (string.sub(left,1,1))
+        --print (string.sub(right,1,1))
+        --print (convert_card_tonumber(string.sub(left,1,1)) > convert_card_tonumber(string.sub(right,1,1)))
+        return convert_card_tonumber(string.sub(left,1,1)) > convert_card_tonumber(string.sub(right,1,1))
+    end )
+    --print(a)
+    if string.len(board_string) == 6 then
+      return a[1] .. a[2] .. a[3]
+    else
+      return a[1] .. a[2] .. a[3] .. string.sub(board_string,7)
+    end
+  end
+end
+
+
+function run()
   local line, err = client:receive()
   -- if there was no error, send it back to the client
   if not err then
@@ -100,8 +143,16 @@ function run()
   local node
   --2.1 blocks until it's our situation/turn
   state, node = acpc_game:string_to_statenode(line)
+  print(line)
   print(state)
-  print(node)
+  if state["board"] ~= nil then
+    print(state['board'])
+    state['board'] = sortBoardFlop(state['board'])
+    print(state['board'])
+    --print(node)
+  else
+    print(state)
+  end
 
   --did a new hand start?
   if not last_state or last_state.hand_number ~= state.hand_number or node.street < last_node.street then
