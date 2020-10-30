@@ -68,8 +68,10 @@ function M:get_pot_size(street, nolimit)
   if nolimit then
     --min_pot = {100, 200, 400, 2000, 6000}
     --max_pot = {100, 400, 2000, 6000, 18000}
-    min_pot = {30, 60, 120, 200, 600}
-    max_pot = {30, 120, 200, 600, 1800}
+    --min_pot = {30, 60, 120, 200, 600}
+    --max_pot = {30, 120, 200, 600, 1800}
+    min_pot = {30, 60, 120, 200, 400}
+    max_pot= {30, 120, 200, 400, 600}
   else
     if street == 4 then
       min_pot = {2, 12, 24}

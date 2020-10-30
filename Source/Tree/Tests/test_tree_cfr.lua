@@ -24,6 +24,7 @@ local starting_ranges = arguments.Tensor(constants.players_count, game_settings.
 
 starting_ranges[1]:copy(card_tools:get_uniform_range(params.root_node.board))
 starting_ranges[2]:copy(card_tools:get_uniform_range(params.root_node.board))
+print(starting_ranges[1])
 --starting_ranges[1]:copy(card_tools:get_random_range(params.root_node.board, 2))
 --starting_ranges[2]:copy(card_tools:get_random_range(params.root_node.board, 4))
 
