@@ -7,6 +7,17 @@ local constants = require 'Settings.constants'
 require 'ACPC.acpc_game'
 require 'Player.continual_resolving'
 
+
+-- load namespace
+-- create a TCP socket and bind it to the local host, at any port
+local server = assert(socket.bind("*", input_port))
+local ip, port = server:getsockname()
+print("listening to " .. ip .. ":" .. port)
+
+local client = server:accept()
+print("accepted client")
+
+
 -- *
 -- Import try catch functions from https://tboox.org/cn/2016/12/14/try-catch/
 -- *
@@ -172,14 +183,7 @@ function run()
 end
 
 
--- load namespace
--- create a TCP socket and bind it to the local host, at any port
-local server = assert(socket.bind("*", input_port))
-local ip, port = server:getsockname()
-print("listening to " .. ip .. ":" .. port)
 
-local client = server:accept()
-print("accepted client")
 
 while 1 do
   local status, err, ret = xpcall(run, getTrace)
