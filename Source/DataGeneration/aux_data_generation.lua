@@ -89,7 +89,7 @@ function M:generate_data_file(data_count, file_name, street)
     end
 
     --generating pot sizes between ante and stack - 0.1
-    local min_pot, max_pot = tool:get_pot_size(street, game_settings.nl)
+    local min_pot, max_pot = tools:get_pot_size(street, game_settings.nl)
 
     local pot_range = {}
 

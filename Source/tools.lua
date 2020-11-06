@@ -107,7 +107,7 @@ function M:get_trianing_path(street, nolimit)
   elseif street == 2 then
     train_folder = train_folder .. "flop_raw/"
   elseif street == 1 then
-    train_folder = train_folder .. "preflop_raw/"
+    train_folder = train_folder .. "preflop-aux_raw/"
   end
 
   return train_folder
