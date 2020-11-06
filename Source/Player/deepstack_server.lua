@@ -8,16 +8,6 @@ require 'ACPC.acpc_game'
 require 'Player.continual_resolving'
 
 
--- load namespace
--- create a TCP socket and bind it to the local host, at any port
-local server = assert(socket.bind("*", input_port))
-local ip, port = server:getsockname()
-print("listening to " .. ip .. ":" .. port)
-
-local client = server:accept()
-print("accepted client")
-
-
 -- *
 -- Import try catch functions from https://tboox.org/cn/2016/12/14/try-catch/
 -- *
@@ -81,6 +71,15 @@ local continual_resolving = ContinualResolving()
 
 local last_state = nil
 local last_node = nil
+
+-- load namespace
+-- create a TCP socket and bind it to the local host, at any port
+local server = assert(socket.bind("*", input_port))
+local ip, port = server:getsockname()
+print("listening to " .. ip .. ":" .. port)
+
+local client = server:accept()
+print("accepted client")
 
 
 function getTrace()
