@@ -76,7 +76,8 @@ function Lookahead:_compute()
   for i = 1, 8 do
     timings[i] = 0
   end
-
+  local compute_timer = torch.Timer()
+  compute_timer:reset()
   for iter = 1, arguments.cfr_iters do
 
     local timer = torch.Timer()
@@ -105,6 +106,9 @@ function Lookahead:_compute()
     self:_compute_cumulate_average_cfvs(iter)
     timings[8] = timings[8] + timer:time().real
     timer:reset()
+    if compute_timer:time().real > 10 then
+      return
+    end
     --print ('iter:'..iter)
   end
 

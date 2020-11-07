@@ -146,7 +146,7 @@ function run()
   --2.1 blocks until it's our situation/turn
   state, node = acpc_game:string_to_statenode(line)
   print(line)
-  print(state)
+  --print(state)
   if state["board"] ~= nil then
     print(state['board'])
     state['board'] = sortBoardFlop(state['board'])
