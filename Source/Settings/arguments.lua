@@ -26,7 +26,7 @@ params.ante = 1
 params.sb = 10
 params.bb = 20
 --- the size of each player's stack, in chips
-params.stack = 300
+params.stack = 100
 --- the number of iterations that DeepStack runs CFR for
 params.cfr_iters = 800
 --- the number of preliminary CFR iterations which DeepStack doesn't factor into the average strategy (included in cfr_iters)
