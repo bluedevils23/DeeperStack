@@ -129,6 +129,16 @@ function sortBoardFlop(board_string)
   end
 end
 
+function mysplit (inputstr, sep)
+  if sep == nil then
+    sep = "%s"
+  end
+  local t={}
+  for str in string.gmatch(inputstr, "([^"..sep.."]+)") do
+    table.insert(t, str)
+  end
+  return t
+end
 
 function run()
   local line, err = client:receive()
@@ -140,6 +150,10 @@ function run()
     client = server:accept()
     print("accepted client")
   end
+
+  if string.match(line, ';') then
+    arguments.stack = tonumber(mysplit(line, ';')[1])
+    line = mysplit(line, ';')[2]
 
   local state
   local node
