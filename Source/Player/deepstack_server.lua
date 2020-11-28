@@ -154,12 +154,15 @@ function run()
   if string.match(line, ';') then
     arguments.stack = tonumber(mysplit(line, ';')[1])
     line = mysplit(line, ';')[2]
+  end
 
   local state
   local node
   --2.1 blocks until it's our situation/turn
   state, node = acpc_game:string_to_statenode(line)
   print(line)
+  print("arguments.stack:")
+  print(arguments.stack)
   --print(state)
   if state["board"] ~= nil then
     print(state['board'])
@@ -205,5 +208,7 @@ while 1 do
   else
     print("Failure")
     print(err)
- end
+  end
 end
+
+

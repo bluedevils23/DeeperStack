@@ -236,7 +236,8 @@ end
 -- @param values a tensor in which to store the values
 function NextRoundValue:get_value_on_board(board, values)
   --check if we have evaluated correct number of iterations
-  assert(self.iter == arguments.cfr_iters )
+  --Not need for real game, time limit
+  --assert(self.iter == arguments.cfr_iters )
   local batch_size = values:size(1)
   assert(batch_size == self.batch_size)
 
@@ -249,8 +250,8 @@ end
 -- so that they are an average rather than a sum.
 -- @local
 function NextRoundValue:_prepare_next_round_values()
-
-  assert(self.iter == arguments.cfr_iters )
+  --Not needed for real game, time limit
+  --assert(self.iter == arguments.cfr_iters )
 
   --do nothing if already prepared
   if self._values_are_prepared then

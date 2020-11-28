@@ -105,7 +105,7 @@ end
 function ContinualResolving:_update_invariant(node, state)
   --1.0 street has changed
   if self.last_node and self.last_node.street ~= node.street then
-    assert(self.last_node.street + 1 == node.street)
+    assert(self.last_node.street + 1 == node.street, tostring(self.last_node.street)..' '..tostring(node.street))
 
     --1.1 opponent cfvs
     --if the street has changed, the resonstruction API simply gives us CFVs
@@ -162,6 +162,9 @@ function ContinualResolving:_sample_bet(node, state)
   local possible_bets = self.resolving:get_possible_actions()
   local actions_count = possible_bets:size(1)
 
+  --print("possible_bets:")
+  --print(possible_bets)
+
   --2.0 get the strategy for the current hand since the strategy is computed for all hands
   local hand_strategy = arguments.Tensor(actions_count)
 
@@ -170,6 +173,9 @@ function ContinualResolving:_sample_bet(node, state)
     local action_strategy = self.resolving:get_action_strategy(action_bet)
     hand_strategy[i] = action_strategy[self.hand_id]
   end
+
+  --print("strategy:")
+  --print(hand_strategy)
 
   assert(math.abs(1 - hand_strategy:sum()) < 0.001)
 
