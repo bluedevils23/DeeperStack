@@ -106,7 +106,7 @@ function Lookahead:_compute()
     self:_compute_cumulate_average_cfvs(iter)
     timings[8] = timings[8] + timer:time().real
     timer:reset()
-    if self.compute_timer:time().real > 60 then
+    if self.compute_timer:time().real > 1000 then
       break
     end
     --print ('iter:'..iter)
